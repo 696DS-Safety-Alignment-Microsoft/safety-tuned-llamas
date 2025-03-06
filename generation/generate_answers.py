@@ -6,7 +6,7 @@ from typing import Union
 
 import torch
 from peft import PeftModel
-from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig, BitsAndBytesConfig
 from tqdm import tqdm
 
 from tap import Tap
@@ -162,9 +162,13 @@ def main(args: Arguments):
     # Load the tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(args.base_model)
     if device == "cuda":
+        bnb_config = BitsAndBytesConfig(
+            load_in_8bit=True,
+            bnb_8bit_compute_dtype=torch.float16
+        )
         model = AutoModelForCausalLM.from_pretrained(
             args.base_model,
-            load_in_8bit=args.load_8bit,
+            quantization_config=bnb_config,
             torch_dtype=torch.float16,
             device_map="auto",
             trust_remote_code=True,
