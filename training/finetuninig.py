@@ -20,7 +20,7 @@ from peft import (
     prepare_model_for_kbit_training,
     set_peft_model_state_dict,
 )
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from prompter import Prompter
 
@@ -109,11 +109,15 @@ def train(
     if len(wandb_log_model) > 0:
         os.environ["WANDB_LOG_MODEL"] = wandb_log_model
 
+    bnb_config = BitsAndBytesConfig(
+        load_in_8bit=True,
+        bnb_8bit_compute_dtype=torch.float16
+    )
+
     model = AutoModelForCausalLM.from_pretrained(
         base_model,
-        load_in_8bit=True,
-        torch_dtype=torch.float16,
-        device_map=device_map,
+        quantization_config=bnb_config,
+        device_map="auto",
         trust_remote_code=True
     )
 
@@ -242,13 +246,13 @@ def train(
             learning_rate=learning_rate,
             fp16=True,
             logging_steps=10,
-            optim="adamw_torch",
-            evaluation_strategy="steps" if val_set_size > 0 else "no",
-            save_strategy="steps",
+            optim="adamw_bnb_8bit",
+            evaluation_strategy="epoch" if val_set_size > 0 else "no",
+            save_strategy="epoch",
             eval_steps=25 if val_set_size > 0 else None,
             save_steps=25,
             output_dir=output_dir,
-            save_total_limit=30,
+            save_total_limit=10,
             load_best_model_at_end=True if val_set_size > 0 else False,
             ddp_find_unused_parameters=False if ddp else None,
             group_by_length=group_by_length,
@@ -274,4 +278,6 @@ def train(
 
 
 if __name__ == "__main__":
+    # torch.cuda.empty_cache()
+    # torch.cuda.reset_peak_memory_stats()
     fire.Fire(train)
