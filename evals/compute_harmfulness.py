@@ -4,6 +4,7 @@ import os
 import argparse
 import numpy as np
 from HarmfulnessRewardModel import AbsoluteHarmfulnessPredictor
+from datasets import load_dataset
 
 def main():
     parser = argparse.ArgumentParser(description="Compute harmfulness scores from JSON and save to CSV.")
@@ -19,6 +20,10 @@ def main():
     # Extract instructions and outputs
     user_texts = data["instructions"]
     assistant_texts = data["outputs"]
+    
+    #extract categories
+    dataset = load_dataset("PKU-Alignment/BeaverTails-Evaluation", split='test')
+    category_ids = dataset['category_id']
 
     # Compute harmfulness scores
     setup = "redteam"  # or "redteam-osst"
@@ -29,11 +34,11 @@ def main():
     os.makedirs(os.path.dirname(args.output_dir), exist_ok=True)
 
     # Write to CSV file
-    with open(args.output_dir, mode="w", newline="") as file:
+    with open(args.output_dir, mode="w", newline="", encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(["Harmfulness Score"])  # Header
-        for instr, output, score in zip(user_texts, assistant_texts, harmfulness_scores):
-            writer.writerow([score])
+        writer.writerow(["Category ID", "Prompt", "Response", "Harmfulness Score"])  # Header
+        for c, instr, output, score in zip(category_ids, user_texts, assistant_texts, harmfulness_scores):
+            writer.writerow([c,instr,output,score])
 
     print(f"CSV saved at: {args.output_dir}")
     print(f"Average harmfulness score: {np.mean(harmfulness_scores):.4f}")
