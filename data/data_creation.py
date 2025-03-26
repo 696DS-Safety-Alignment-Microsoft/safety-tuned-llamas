@@ -34,7 +34,29 @@ def subsample_and_augment(safety_file, alpaca_file, output_prefix, sample_size=1
         
         print(f"Saved: {output_file}")
 
+
+def augment_data(base_data_file, safety_file, output_file):
+    with open(safety_file, 'r') as f:
+        safety_data = json.load(f)
+    with open(base_data_file, 'r') as f:
+        base_data = json.load(f)
+    
+    for item in safety_data:
+        item["safety_flag"] = True
+    
+    for item in base_data:
+        item["safety_flag"] = False
+    
+    augmented_data = base_data + safety_data
+    random.shuffle(augmented_data)
+    
+    with open(output_file, 'w') as f:
+        json.dump(augmented_data, f, indent=4)  
+    
+    print(f"Saved: {output_file}")
+        
     
 # Example usage
 #add_safety_flag("./training/safety_only_data_Instructions.json")
-subsample_and_augment("./training/safety_only_data_Instructions.json", "./training/alpaca_small.json", "./training/temp_folder", 100)
+#subsample_and_augment("./training/safety_only_data_Instructions.json", "./training/alpaca_small.json", "./training/temp_folder", 100)
+augment_data("./training/alpaca_small.json", "../../outputs/safe_sampled_100_high.json", "./training/svd_100/alpaca_safer_100_dataset_high.json")
