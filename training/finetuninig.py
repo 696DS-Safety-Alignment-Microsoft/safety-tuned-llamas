@@ -189,9 +189,9 @@ def train(
     model = get_peft_model(model, config)
 
     if data_path.endswith(".json") or data_path.endswith(".jsonl"):
-        data = load_dataset("json", data_files=data_path)
+        data = load_dataset("json", data_files=data_path, cache_dir='~/.cache/huggingface/datasets')
     else:
-        data = load_dataset(data_path)
+        data = load_dataset(data_path, cache_dir='~/.cache/huggingface/datasets')
 
     if resume_from_checkpoint:
         # Check the available weights and load them
@@ -247,10 +247,10 @@ def train(
             fp16=True,
             logging_steps=10,
             optim="adamw_bnb_8bit",
-            evaluation_strategy="epoch" if val_set_size > 0 else "no",
-            save_strategy="epoch",
-            eval_steps=25 if val_set_size > 0 else None,
-            save_steps=25,
+            evaluation_strategy="steps" if val_set_size > 0 else "no",
+            save_strategy="steps",
+            eval_steps=80 if val_set_size > 0 else None,
+            save_steps=80,
             output_dir=output_dir,
             save_total_limit=10,
             load_best_model_at_end=True if val_set_size > 0 else False,
