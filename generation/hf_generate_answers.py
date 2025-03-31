@@ -142,7 +142,7 @@ def evaluate(
 def main(args: Arguments):
     # Load the input data (.json)
     input_path = args.input_path
-    input_data = load_dataset(input_path, split='test', cache_dir='~/.cache/huggingface/hub/datasets--PKU-Alignment--BeaverTails-Evaluation')
+    input_data = load_dataset(input_path, split='test', cache_dir='/home/mthalanki_umass_edu/.cache')
     instructions = input_data["prompt"]
     inputs = None
 
