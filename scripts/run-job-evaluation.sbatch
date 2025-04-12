@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=e_job_9
+#SBATCH --job-name=e_job_low
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=1
@@ -10,5 +10,5 @@
 #SBATCH --time=02-00:00:00
 
 python safety-tuned-llamas/evals/compute_harmfulness.py \
-    --input_json ./generation-artifacts/llama3/alpaca-safer-100/alpaca_safer_100_dataset_9/BeaverTails-Evaluation \
-    --output_dir ./evaluation-artifacts/llama3/alpaca-safer-100/alpaca_safer_100_dataset_9/BeaverTails-Evaluation.csv
+    --input_json ./generation-artifacts/llama2/wildguard-annots/instr-harm-sorted-T1-low/BeaverTails-Evaluation \
+    --output_dir ./evaluation-artifacts/llama2/wildguard-annots/instr-harm-sorted-T1-low/BeaverTails-Evaluation.csv
