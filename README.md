@@ -1,9 +1,7 @@
-# Safety-Tuned LLaMAs: ICLR 2024
+# Efficient curation of safety demonstration data for LLM Alignment
 
-**Lessons From Improving the Safety of Large Language Models that Follow Instructions**
-<p align="center">
-<img src="images/main.png" alt="drawing" width="500"/>
-</p>
+**Project Repo for 696DS UMass x Microsoft**
+This repo contains code that was modified from the below paper for our specific research purpose:
 
 ## Citation
 
@@ -27,58 +25,22 @@ SafetyDatasets are available under the `data/evaluation` directory.
 
 Training data is available under the `data/training` directory. Where you will find the instruction-output pairs.
 
+Selection data is available under the `data/selection` directory. Where you will find instruction-output pairs for the SafetyDataset along with a score that facilitates intelligent subsampling
+
 ## Tuning and Generation
 
 Fine-tuning code and generation come from [Alpaca-LoRa](https://github.com/tloen/alpaca-lora) repository.
 
-## Evaluations
+## Script to run 
+- `scripts/run-job-training-{LLM}.sbatch` fine-tunes the LLM with provided data-path
+- `scripts/run-job-generation-{LLM}.sbatch` generates responses to an evaluation dataset consisting of instructions from BeaverTails-Evaluation (to test the fine-tuned LLM's safety)
+- `scripts/run-job-generation-{LLM}-local.sbatch` generates responses to an evaluation dataset consisting of instructions from I-Alpaca (to test the fine-tuned LLM's helpfulness)
+- `scripts/run-job-evaluation-{LLM}.sbatch` runs the Harm Reward Model to evaluate harmfulness in generated responses
+- `scripts/run-job-evaluation-{LLM}-helpfulness.sbatch` runs the OpenAssistant-DoBERTA Reward Model to evaluate helpfulness in generated responses
 
-We provide two abstractions in `evals` that can be used to evaluate the responses from various models.
-
-For the HarmfulnessRewardModel.
-
-```python
-from evals import AbsoluteHarmfulnessPredictor, ConversationBuilder
-
-user_texts = [
-    "User Request 1",
-    "User Request 2",
-]
-assistant_texts = [
-    "Assistant Response 1",
-    "Assistant Response 2",
-]
-
-setup = "redteam"  # or "redteam-osst"
-harmfulness_predictor = AbsoluteHarmfulnessPredictor(setup, device="cuda:0")
-harmfulness_scores = harmfulness_predictor.predict(user_texts, assistant_texts)
-
-print(harmfulness_scores)
-```
-
-For the OpenAI Evaluator, you will have to set the environment variable `OPEN_AI_KEY` and then run:
-
-```python
-from evals import ContentModeration
-
-cm = ContentModeration()
-scores = cm.content_moderation(assistant_texts)
-
-```
-
-## Script to run Generation
-
-The following script should run with any of our safety datasets. Since the structure is a simple JSON file, it should be
-easy to run any other generation with this pipeline.
-
-```bash
-python generation/generate_answers.py \
-    --prompt_template_path ./configs/alpaca.json \
-    --input_path ${instructions} \
-    --output_path ${output_dir} \
-    --lora_weights ${model} \
-    --load_8bit
-```
+## Visualizations
+- `notebooks/score_subsamples.ipynb` to generate a line plot of dataset scores across random trials and optimized trials
+- `notebooks/visualize_results.ipynb` to generate a comparative study of LLM baseline performance and optimized trials
 
 # Licensing
 
