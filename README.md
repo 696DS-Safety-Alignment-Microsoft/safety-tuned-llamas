@@ -1,11 +1,12 @@
-# Efficient curation of safety demonstration data for LLM Alignment
+# How to Fine-Tune Safely on a Budget: Model Adaptation Using Minimal Resources
 
-**Project Repo for 696DS UMass x Microsoft**
-This repo contains code that was modified from the below paper for our specific research purpose:
+**Abstract**
+Supervised fine-tuning (SFT) on benign data can paradoxically erode a language model's safety alignment, a phenomenon known as catastrophic forgetting of safety behaviors. Although prior work shows that randomly adding safety examples can reduce harmful output, the principles that make certain examples more effective than others remain poorly understood. This paper investigates the hypothesis that the effectiveness of a safety example is governed by two key factors: its instruction-response behavior (e.g., refusal vs. explanation) and its semantic diversity across harm categories. We systematically evaluate sampling strategies based on these axes and find that structured, diversity-aware sampling significantly improves model safety. Our method reduces harmfulness by up to 41\% while adding only 0.05\% more data to the fine-tuning set. 
+
 
 ## Citation
 
-Please consider citing the following paper if you use this code or data in your work:
+This repo contains code that was modified from the below paper for our specific research purpose:
 
 
 ```
