@@ -8,7 +8,7 @@
 #SBATCH --error=out.err
 
 source venv/bin/activate
-python category_avg.py \
-    --data_file 'category_wildguard.json'\
+python category_sss.py \ # Change this to pss if needed
+    --data_file 'category_wildguard.json'\ 
     --out "out/" \
     --num_samples 50 \
