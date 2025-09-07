@@ -5,4 +5,4 @@
 * saferpaca_Instructions_100.json: 20k alpaca (alpaca_small.json) + 100 safety examples
 * saferpaca_Instructions_300.json: 20k alpaca (alpaca_small.json) + 300 safety examples
 * saferpaca_Instructions_X.json: 20k alpaca (alpaca_small.json) + X safety examples
-
+* safety-only-catorgied.jsonl: ~2.5k samples of safe and labled Beavertails data
