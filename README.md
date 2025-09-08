@@ -39,4 +39,5 @@ Wildguard classification and sampling code for PSS and SS can be found in the `s
 * Due to the fact that some of the data is GPT-generated and comes from other work, Data is licensed under the Creative Commons Attribution Non Commercial 4.0 License. For SafeText data, also referred as PhysicalSafety in our paper, please refer to [1].
 
 [1] Levy, S., Allaway, E., Subbiah, M., Chilton, L., Patton, D., McKeown, K., & Wang, W. Y. (2022). Safetext: A benchmark for exploring physical safety in language models. EMNLP.
+
 [2] Bianchi, F., Suzgun, M., Attanasio, G., Röttger, P., Jurafsky, D., Hashimoto, T., & Zou, J. (2024). Safety-Tuned LLaMAs: Lessons from improving the safety of large language models that follow instructions. In Proceedings of the Twelfth International Conference on Learning Representations (ICLR). https://openreview.net/forum?id=gT5hALch9z
