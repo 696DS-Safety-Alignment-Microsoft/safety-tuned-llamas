@@ -4,23 +4,9 @@
 Supervised fine-tuning (SFT) on benign data can paradoxically erode a language model's safety alignment, a phenomenon known as catastrophic forgetting of safety behaviors. Although prior work shows that randomly adding safety examples can reduce harmful output, the principles that make certain examples more effective than others remain poorly understood. This paper investigates the hypothesis that the effectiveness of a safety example is governed by two key factors: its instruction-response behavior (e.g., refusal vs. explanation) and its semantic diversity across harm categories. We systematically evaluate sampling strategies based on these axes and find that structured, diversity-aware sampling significantly improves model safety. Our method reduces harmfulness by up to 41\% while adding only 0.05\% more data to the fine-tuning set. 
 
 
-## Citation
-
-This repo contains code that was modified from the below paper for our specific research purpose:
-
-
-```
-@inproceedings{
-bianchi2024safetytuned,
-title={Safety-Tuned {LL}a{MA}s: Lessons From Improving the Safety of Large Language Models that Follow Instructions},
-author={Federico Bianchi and Mirac Suzgun and Giuseppe Attanasio and Paul Rottger and Dan Jurafsky and Tatsunori Hashimoto and James Zou},
-booktitle={The Twelfth International Conference on Learning Representations},
-year={2024},
-url={https://openreview.net/forum?id=gT5hALch9z}
-}
-```
-
 ## Starting Point
+
+This repo contains code that was modified from the below paper for our specific research purpose [1][2]
 
 SafetyDatasets are available under the `data/evaluation` directory.
 
@@ -31,6 +17,9 @@ Selection data is available under the `data/selection` directory. Where you will
 ## Tuning and Generation
 
 Fine-tuning code and generation come from [Alpaca-LoRa](https://github.com/tloen/alpaca-lora) repository.
+
+Wildguard classification and sampling code for PSS and SS can be found in the `sample` directory. After sampling the safety points, please use `data/data_creation.py` to generate the final fine-tuning dataset.
+
 
 ## Script to run 
 - `scripts/run-job-training-{LLM}.sbatch` fine-tunes the LLM with provided data-path
@@ -50,3 +39,4 @@ Fine-tuning code and generation come from [Alpaca-LoRa](https://github.com/tloen
 * Due to the fact that some of the data is GPT-generated and comes from other work, Data is licensed under the Creative Commons Attribution Non Commercial 4.0 License. For SafeText data, also referred as PhysicalSafety in our paper, please refer to [1].
 
 [1] Levy, S., Allaway, E., Subbiah, M., Chilton, L., Patton, D., McKeown, K., & Wang, W. Y. (2022). Safetext: A benchmark for exploring physical safety in language models. EMNLP.
+[2] Bianchi, F., Suzgun, M., Attanasio, G., Röttger, P., Jurafsky, D., Hashimoto, T., & Zou, J. (2024). Safety-Tuned LLaMAs: Lessons from improving the safety of large language models that follow instructions. In Proceedings of the Twelfth International Conference on Learning Representations (ICLR). https://openreview.net/forum?id=gT5hALch9z
