@@ -32,7 +32,7 @@ Wildguard classification and sampling code for PSS and SS can be found in the `s
 - `notebooks/score_subsamples.ipynb` to generate a line plot of dataset scores across random trials and optimized trials
 - `notebooks/visualize_results.ipynb` to generate a comparative study of LLM baseline performance and optimized trials
 
-# Licensing
+## Licensing
 
 * Code is licensed under the MIT License. 
 
@@ -41,6 +41,7 @@ Wildguard classification and sampling code for PSS and SS can be found in the `s
 [1] Levy, S., Allaway, E., Subbiah, M., Chilton, L., Patton, D., McKeown, K., & Wang, W. Y. (2022). Safetext: A benchmark for exploring physical safety in language models. EMNLP.
 
 [2] Bianchi, F., Suzgun, M., Attanasio, G., Röttger, P., Jurafsky, D., Hashimoto, T., & Zou, J. (2024). Safety-Tuned LLaMAs: Lessons from improving the safety of large language models that follow instructions. In Proceedings of the Twelfth International Conference on Learning Representations (ICLR). https://openreview.net/forum?id=gT5hALch9z
+
 
 ## Citation
 
