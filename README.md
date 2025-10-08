@@ -41,3 +41,18 @@ Wildguard classification and sampling code for PSS and SS can be found in the `s
 [1] Levy, S., Allaway, E., Subbiah, M., Chilton, L., Patton, D., McKeown, K., & Wang, W. Y. (2022). Safetext: A benchmark for exploring physical safety in language models. EMNLP.
 
 [2] Bianchi, F., Suzgun, M., Attanasio, G., Röttger, P., Jurafsky, D., Hashimoto, T., & Zou, J. (2024). Safety-Tuned LLaMAs: Lessons from improving the safety of large language models that follow instructions. In Proceedings of the Twelfth International Conference on Learning Representations (ICLR). https://openreview.net/forum?id=gT5hALch9z
+
+## Citation
+
+If you use our dataset, code, or results, please cite:
+
+```bibtex
+@inproceedings{pham-etal-2025-finetune-safely-budget,
+  title     = {How to Fine-Tune Safely on a Budget: Model Adaptation Using Minimal Resources},
+  author    = {Pham, Anh C. and Thalanki, Mihir and Sun, Michael and Chaloo, Aditya and Gupta, Ankita and Xia, Tian and Mate, Aditya and Nosakhare, Ehi and Srinivasan, Soundararajan},
+  booktitle = {Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing: Industry Track},
+  year      = {2025},
+  publisher = {Association for Computational Linguistics},
+  url       = {https://openreview.net/forum?id=fPWXX4vsrp},
+  note      = {Industry Track, EMNLP 2025. Camera-ready version.}
+}
